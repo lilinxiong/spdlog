@@ -228,6 +228,7 @@ public:
         }
 
         details::log_msg log_msg(loc, name_, lvl, msg);
+        log_msg.msg_tag = tag;
         log_it_(log_msg, log_enabled, traceback_enabled);
     }
 
