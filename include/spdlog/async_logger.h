@@ -52,7 +52,7 @@ public:
     std::shared_ptr<logger> clone(std::string new_name) override;
 
 protected:
-    void sink_it_(const char*, const details::log_msg &msg) override;
+    void sink_it_(const char* tag, const details::log_msg &msg) override;
     void flush_() override;
     void backend_sink_it_(const char*tag, const details::log_msg &incoming_log_msg);
     void backend_flush_();
