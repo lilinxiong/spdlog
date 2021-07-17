@@ -36,8 +36,9 @@ public:
     {}
 
 protected:
-    void sink_it_(const char* tag, const details::log_msg &msg) override
+    void sink_it_(const details::log_msg &msg) override
     {
+        const char *tag = msg.msg_tag.c_str();
         const android_LogPriority priority = convert_to_android_(msg.level);
         memory_buf_t formatted;
         if (use_raw_msg_)

@@ -209,7 +209,7 @@ public:
         }
 
         details::log_msg log_msg(log_time, loc, name_, lvl, msg);
-        log_it_(tag, log_msg, log_enabled, traceback_enabled);
+        log_it_(log_msg, log_enabled, traceback_enabled);
     }
 
     void log(log_clock::time_point log_time, source_loc loc, level::level_enum lvl, string_view_t msg)
@@ -227,7 +227,7 @@ public:
         }
 
         details::log_msg log_msg(loc, name_, lvl, msg);
-        log_it_(tag, log_msg, log_enabled, traceback_enabled);
+        log_it_(log_msg, log_enabled, traceback_enabled);
     }
 
     void log(source_loc loc, level::level_enum lvl, string_view_t msg)
@@ -472,15 +472,16 @@ protected:
             // faster than fmt::format_to(std::back_inserter(buf), fmt, std::forward<Args>(args)...);
             fmt::detail::vformat_to(buf, fmt::string_view(fmt), fmt::make_format_args(args...), {});
             details::log_msg log_msg(loc, name_, lvl, string_view_t(buf.data(), buf.size()));
-            log_it_(tag, log_msg, log_enabled, traceback_enabled);
+            log_msg.msg_tag = tag;
+            log_it_(log_msg, log_enabled, traceback_enabled);
         }
         SPDLOG_LOGGER_CATCH()
     }
 
     // log the given message (if the given log level is high enough),
     // and save backtrace (if backtrace is enabled).
-    void log_it_(const char *tag, const details::log_msg &log_msg, bool log_enabled, bool traceback_enabled);
-    virtual void sink_it_(const char* tag, const details::log_msg &msg);
+    void log_it_(const details::log_msg &log_msg, bool log_enabled, bool traceback_enabled);
+    virtual void sink_it_(const details::log_msg &msg);
     virtual void flush_();
     void dump_backtrace_();
     bool should_flush_(const details::log_msg &msg);

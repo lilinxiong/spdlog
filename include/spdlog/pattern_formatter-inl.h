@@ -943,6 +943,13 @@ public:
         auto duration = msg.time.time_since_epoch();
         auto secs = duration_cast<seconds>(duration);
 
+        if (msg.msg_tag.size() > 0) {
+            dest.push_back('[');
+            fmt_helper::append_string_view(msg.msg_tag, dest);
+            dest.push_back(']');
+            dest.push_back(' ');
+        }
+
         if (cache_timestamp_ != secs || cached_datetime_.size() == 0)
         {
             cached_datetime_.clear();

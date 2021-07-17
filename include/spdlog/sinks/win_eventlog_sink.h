@@ -214,7 +214,7 @@ private:
     }
 
 protected:
-    void sink_it_(const char*, const details::log_msg &msg) override
+    void sink_it_(const details::log_msg &msg) override
     {
         using namespace internal;
 

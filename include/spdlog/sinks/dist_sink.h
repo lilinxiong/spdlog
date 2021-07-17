@@ -55,13 +55,13 @@ public:
     }
 
 protected:
-    void sink_it_(const char*tag, const details::log_msg &msg) override
+    void sink_it_(const details::log_msg &msg) override
     {
         for (auto &sink : sinks_)
         {
             if (sink->should_log(msg.level))
             {
-                sink->log(tag, msg);
+                sink->log(msg);
             }
         }
     }

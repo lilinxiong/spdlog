@@ -16,7 +16,7 @@ TEST_CASE("time_point1", "[time_point log_msg]")
     for (int i = 0; i < 5; i++)
     {
         spdlog::details::log_msg msg{tp, source, "test_logger", spdlog::level::info, "message"};
-        test_sink->log(spdlog::default_tag(), msg);
+        test_sink->log(msg);
     }
 
     logger.log(spdlog::default_tag(), tp, source, spdlog::level::info, "formatted message");
