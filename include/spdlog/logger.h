@@ -479,8 +479,8 @@ protected:
 
     // log the given message (if the given log level is high enough),
     // and save backtrace (if backtrace is enabled).
-    void log_it_(const char*tag, const details::log_msg &log_msg, bool log_enabled, bool traceback_enabled);
-    virtual void sink_it_(const char*tag, const details::log_msg &msg);
+    void log_it_(const char *tag, const details::log_msg &log_msg, bool log_enabled, bool traceback_enabled);
+    virtual void sink_it_(const char* tag, const details::log_msg &msg);
     virtual void flush_();
     void dump_backtrace_();
     bool should_flush_(const details::log_msg &msg);

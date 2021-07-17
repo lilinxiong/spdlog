@@ -24,7 +24,7 @@ SPDLOG_INLINE spdlog::async_logger::async_logger(
 {}
 
 // send the log message to the thread pool
-SPDLOG_INLINE void spdlog::async_logger::sink_it_(const char*tag, const details::log_msg &msg)
+SPDLOG_INLINE void spdlog::async_logger::sink_it_(const char* , const details::log_msg &msg)
 {
     if (auto pool_ptr = thread_pool_.lock())
     {
