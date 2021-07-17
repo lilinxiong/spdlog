@@ -18,7 +18,8 @@ SPDLOG_INLINE void initialize_logger(std::shared_ptr<logger> logger)
 }
 SPDLOG_INLINE const char *default_tag()
 {
-    return spdlog_default_tag;
+    string_view_t s = SPDLOG_DEFAULT_TAG;
+    return s.data();
 }
 SPDLOG_INLINE std::shared_ptr<logger> get(const std::string &name)
 {

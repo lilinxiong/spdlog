@@ -77,7 +77,7 @@ public:
 
     // FormatString is a type derived from fmt::compile_string
     template<typename FormatString, typename std::enable_if<fmt::is_compile_string<FormatString>::value, int>::type = 0, typename... Args>
-    void log(const char* tag, source_loc loc, level::level_enum lvl, const FormatString &fmt, Args &&...args)
+    void log(string_view_t tag, source_loc loc, level::level_enum lvl, const FormatString &fmt, Args &&...args)
     {
         log_(tag, loc, lvl, fmt, std::forward<Args>(args)...);
     }
@@ -86,12 +86,12 @@ public:
     template<typename FormatString, typename std::enable_if<fmt::is_compile_string<FormatString>::value, int>::type = 0, typename... Args>
     void log(source_loc loc, level::level_enum lvl, const FormatString &fmt, Args &&...args)
     {
-        log(spdlog_default_tag, loc, lvl, fmt, std::forward<Args>(args)...);
+        log(SPDLOG_DEFAULT_TAG, loc, lvl, fmt, std::forward<Args>(args)...);
     }
 
     // FormatString is NOT a type derived from fmt::compile_string but is a string_view_t or can be implicitly converted to one
     template<typename... Args>
-    void log(const char* tag, source_loc loc, level::level_enum lvl, string_view_t fmt, Args &&...args)
+    void log(string_view_t tag, source_loc loc, level::level_enum lvl, string_view_t fmt, Args &&...args)
     {
         log_(tag, loc, lvl, fmt, std::forward<Args>(args)...);
     }
@@ -100,11 +100,11 @@ public:
     template<typename... Args>
     void log(source_loc loc, level::level_enum lvl, string_view_t fmt, Args &&...args)
     {
-        log(spdlog_default_tag, loc, lvl, fmt, std::forward<Args>(args)...);
+        log(SPDLOG_DEFAULT_TAG, loc, lvl, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
-    void log(const char* tag, level::level_enum lvl, const FormatString &fmt, Args &&...args)
+    void log(string_view_t tag, level::level_enum lvl, const FormatString &fmt, Args &&...args)
     {
         log(tag, source_loc{}, lvl, fmt, std::forward<Args>(args)...);
     }
@@ -112,11 +112,11 @@ public:
     template<typename FormatString, typename... Args>
     void log(level::level_enum lvl, const FormatString &fmt, Args &&...args)
     {
-        log(spdlog_default_tag, source_loc{}, lvl, fmt, std::forward<Args>(args)...);
+        log(SPDLOG_DEFAULT_TAG, source_loc{}, lvl, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
-    void trace_tag(const char* tag, const FormatString &fmt, Args &&...args)
+    void trace_tag(string_view_t tag, const FormatString &fmt, Args &&...args)
     {
         log(tag, level::trace, fmt, std::forward<Args>(args)...);
     }
@@ -124,11 +124,11 @@ public:
     template<typename FormatString, typename... Args>
     void trace(const FormatString &fmt, Args &&...args)
     {
-        trace_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
+        trace_tag(SPDLOG_DEFAULT_TAG, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
-    void debug_tag(const char *tag, const FormatString &fmt, Args &&...args)
+    void debug_tag(string_view_t tag, const FormatString &fmt, Args &&...args)
     {
         log(tag, level::debug, fmt, std::forward<Args>(args)...);
     }
@@ -136,11 +136,11 @@ public:
     template<typename FormatString, typename... Args>
     void debug(const FormatString &fmt, Args &&...args)
     {
-        debug_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
+        debug_tag(SPDLOG_DEFAULT_TAG, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
-    void info_tag(const char *tag, const FormatString &fmt, Args &&...args)
+    void info_tag(string_view_t tag, const FormatString &fmt, Args &&...args)
     {
         log(tag, level::info, fmt, std::forward<Args>(args)...);
     }
@@ -148,11 +148,11 @@ public:
     template<typename FormatString, typename... Args>
     void info(const FormatString &fmt, Args &&...args)
     {
-        info_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
+        info_tag(SPDLOG_DEFAULT_TAG, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
-    void warn_tag(const char *tag, const FormatString &fmt, Args &&...args)
+    void warn_tag(string_view_t tag, const FormatString &fmt, Args &&...args)
     {
         log(tag, level::warn, fmt, std::forward<Args>(args)...);
     }
@@ -160,11 +160,11 @@ public:
     template<typename FormatString, typename... Args>
     void warn(const FormatString &fmt, Args &&...args)
     {
-        warn_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
+        warn_tag(SPDLOG_DEFAULT_TAG, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
-    void error_tag(const char *tag, const FormatString &fmt, Args &&...args)
+    void error_tag(string_view_t tag, const FormatString &fmt, Args &&...args)
     {
         log(tag, level::err, fmt, std::forward<Args>(args)...);
     }
@@ -172,11 +172,11 @@ public:
     template<typename FormatString, typename... Args>
     void error(const FormatString &fmt, Args &&...args)
     {
-        error_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
+        error_tag(SPDLOG_DEFAULT_TAG, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
-    void critical_tag(const char *tag, const FormatString &fmt, Args &&...args)
+    void critical_tag(string_view_t tag, const FormatString &fmt, Args &&...args)
     {
         log(tag, level::critical, fmt, std::forward<Args>(args)...);
     }
@@ -184,11 +184,11 @@ public:
     template<typename FormatString, typename... Args>
     void critical(const FormatString &fmt, Args &&...args)
     {
-        critical_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
+        critical_tag(SPDLOG_DEFAULT_TAG, fmt, std::forward<Args>(args)...);
     }
 
     template<typename T>
-    void log(const char* tag, level::level_enum lvl, const T &msg)
+    void log(string_view_t tag, level::level_enum lvl, const T &msg)
     {
         log(tag, source_loc{}, lvl, msg);
     }
@@ -196,10 +196,10 @@ public:
     template<typename T>
     void log(level::level_enum lvl, const T &msg)
     {
-        log(spdlog_default_tag, source_loc{}, lvl, msg);
+        log(SPDLOG_DEFAULT_TAG, source_loc{}, lvl, msg);
     }
 
-    void log(const char *tag, log_clock::time_point log_time, source_loc loc, level::level_enum lvl, string_view_t msg)
+    void log(string_view_t tag, log_clock::time_point log_time, source_loc loc, level::level_enum lvl, string_view_t msg)
     {
         bool log_enabled = should_log(lvl);
         bool traceback_enabled = tracer_.enabled();
@@ -215,10 +215,10 @@ public:
 
     void log(log_clock::time_point log_time, source_loc loc, level::level_enum lvl, string_view_t msg)
     {
-        log(spdlog_default_tag, log_time, loc, lvl, msg);
+        log(SPDLOG_DEFAULT_TAG, log_time, loc, lvl, msg);
     }
 
-    void log(const char* tag, source_loc loc, level::level_enum lvl, string_view_t msg)
+    void log(string_view_t tag, source_loc loc, level::level_enum lvl, string_view_t msg)
     {
         bool log_enabled = should_log(lvl);
         bool traceback_enabled = tracer_.enabled();
@@ -234,13 +234,13 @@ public:
 
     void log(source_loc loc, level::level_enum lvl, string_view_t msg)
     {
-        log(spdlog_default_tag, loc, lvl, msg);
+        log(SPDLOG_DEFAULT_TAG, loc, lvl, msg);
     }
 
     // T can be statically converted to string_view and isn't a fmt::compile_string
     template<class T, typename std::enable_if<
                           std::is_convertible<const T &, spdlog::string_view_t>::value && !fmt::is_compile_string<T>::value, int>::type = 0>
-    void log(const char *tag, source_loc loc, level::level_enum lvl, const T &msg)
+    void log(string_view_t tag, source_loc loc, level::level_enum lvl, const T &msg)
     {
         log(tag, loc, lvl, string_view_t{msg});
     }
@@ -250,24 +250,24 @@ public:
                           std::is_convertible<const T &, spdlog::string_view_t>::value && !fmt::is_compile_string<T>::value, int>::type = 0>
     void log(source_loc loc, level::level_enum lvl, const T &msg)
     {
-        log(spdlog_default_tag, loc, lvl, string_view_t{msg});
+        log(SPDLOG_DEFAULT_TAG, loc, lvl, string_view_t{msg});
     }
 
-    void log(const char* tag, level::level_enum lvl, string_view_t msg)
+    void log(string_view_t tag, level::level_enum lvl, string_view_t msg)
     {
         log(tag, source_loc{}, lvl, msg);
     }
 
     void log(level::level_enum lvl, string_view_t msg)
     {
-        log(spdlog_default_tag, source_loc{}, lvl, msg);
+        log(source_loc{}, lvl, msg);
     }
 
     // T cannot be statically converted to string_view or wstring_view
     template<class T, typename std::enable_if<!std::is_convertible<const T &, spdlog::string_view_t>::value &&
                                                   !is_convertible_to_wstring_view<const T &>::value,
                           int>::type = 0>
-    void log(const char* tag, source_loc loc, level::level_enum lvl, const T &msg)
+    void log(string_view_t tag, source_loc loc, level::level_enum lvl, const T &msg)
     {
         log(tag, loc, lvl, "{}", msg);
     }
@@ -278,11 +278,11 @@ public:
                           int>::type = 0>
     void log(source_loc loc, level::level_enum lvl, const T &msg)
     {
-        log(spdlog_default_tag, loc, lvl, "{}", msg);
+        log(SPDLOG_DEFAULT_TAG, loc, lvl, "{}", msg);
     }
 
     template<typename T>
-    void trace_tag(const char* tag, const T &msg)
+    void trace_tag(string_view_t tag, const T &msg)
     {
         log(tag, level::trace, msg);
     }
@@ -290,11 +290,11 @@ public:
     template<typename T>
     void trace(const T &msg)
     {
-        trace_tag(spdlog_default_tag, msg);
+        trace_tag(SPDLOG_DEFAULT_TAG, msg);
     }
 
     template<typename T>
-    void debug_tag(const char *tag, const T &msg)
+    void debug_tag(string_view_t tag, const T &msg)
     {
         log(tag, level::debug, msg);
     }
@@ -302,11 +302,11 @@ public:
     template<typename T>
     void debug(const T &msg)
     {
-        debug_tag(spdlog_default_tag, msg);
+        debug_tag(SPDLOG_DEFAULT_TAG, msg);
     }
 
     template<typename T>
-    void info_tag(const char *tag, const T &msg)
+    void info_tag(string_view_t tag, const T &msg)
     {
         log(tag, level::info, msg);
     }
@@ -314,11 +314,11 @@ public:
     template<typename T>
     void info(const T &msg)
     {
-        info_tag(spdlog_default_tag, msg);
+        info_tag(SPDLOG_DEFAULT_TAG, msg);
     }
 
     template<typename T>
-    void warn_tag(const char *tag, const T &msg)
+    void warn_tag(string_view_t tag, const T &msg)
     {
         log(tag, level::warn, msg);
     }
@@ -326,11 +326,11 @@ public:
     template<typename T>
     void warn(const T &msg)
     {
-        warn_tag(spdlog_default_tag, msg);
+        warn_tag(SPDLOG_DEFAULT_TAG, msg);
     }
 
     template<typename T>
-    void error_tag(const char *tag, const T &msg)
+    void error_tag(string_view_t tag, const T &msg)
     {
         log(tag, level::err, msg);
     }
@@ -338,11 +338,11 @@ public:
     template<typename T>
     void error(const T &msg)
     {
-        error_tag(spdlog_default_tag, msg);
+        error_tag(SPDLOG_DEFAULT_TAG, msg);
     }
 
     template<typename T>
-    void critical_tag(const char *tag, const T &msg)
+    void critical_tag(string_view_t tag, const T &msg)
     {
         log(tag, level::critical, msg);
     }
@@ -350,7 +350,7 @@ public:
     template<typename T>
     void critical(const T &msg)
     {
-        critical_tag(spdlog_default_tag, msg);
+        critical_tag(SPDLOG_DEFAULT_TAG, msg);
     }
 
 
@@ -460,7 +460,7 @@ protected:
 
     // common implementation for after templated public api has been resolved
     template<typename FormatString, typename... Args>
-    void log_(const char* tag, source_loc loc, level::level_enum lvl, const FormatString &fmt, Args &&...args)
+    void log_(string_view_t tag, source_loc loc, level::level_enum lvl, const FormatString &fmt, Args &&...args)
     {
         bool log_enabled = should_log(lvl);
         bool traceback_enabled = tracer_.enabled();

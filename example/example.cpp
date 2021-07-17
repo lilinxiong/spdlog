@@ -150,7 +150,6 @@ void async_example()
     for (int i = 1; i < 101; ++i)
     {
         async_file->info("Async message #{}", i);
-        int debug_code = 0;
     }
 }
 
