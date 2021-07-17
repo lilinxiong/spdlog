@@ -214,7 +214,7 @@ public:
 
     void log(log_clock::time_point log_time, source_loc loc, level::level_enum lvl, string_view_t msg)
     {
-        log(spdlog::default_tag(), log_time, loc, lvl, msg);
+        log(spdlog_default_tag, log_time, loc, lvl, msg);
     }
 
     void log(const char* tag, source_loc loc, level::level_enum lvl, string_view_t msg)
@@ -232,7 +232,7 @@ public:
 
     void log(source_loc loc, level::level_enum lvl, string_view_t msg)
     {
-        log(spdlog::default_tag(), loc, lvl, msg);
+        log(spdlog_default_tag, loc, lvl, msg);
     }
 
     // T can be statically converted to string_view and isn't a fmt::compile_string
@@ -258,7 +258,7 @@ public:
 
     void log(level::level_enum lvl, string_view_t msg)
     {
-        log(spdlog::default_tag(), source_loc{}, lvl, msg);
+        log(spdlog_default_tag, source_loc{}, lvl, msg);
     }
 
     // T cannot be statically converted to string_view or wstring_view
