@@ -124,7 +124,7 @@ public:
     template<typename FormatString, typename... Args>
     void trace(const FormatString &fmt, Args &&...args)
     {
-        trace_tag(default_tag(), fmt, std::forward<Args>(args)...);
+        trace_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
@@ -136,7 +136,7 @@ public:
     template<typename FormatString, typename... Args>
     void debug(const FormatString &fmt, Args &&...args)
     {
-        debug_tag(default_tag(), fmt, std::forward<Args>(args)...);
+        debug_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
@@ -148,7 +148,7 @@ public:
     template<typename FormatString, typename... Args>
     void info(const FormatString &fmt, Args &&...args)
     {
-        info_tag(default_tag(), fmt, std::forward<Args>(args)...);
+        info_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
@@ -160,7 +160,7 @@ public:
     template<typename FormatString, typename... Args>
     void warn(const FormatString &fmt, Args &&...args)
     {
-        warn_tag(default_tag(), fmt, std::forward<Args>(args)...);
+        warn_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
@@ -172,7 +172,7 @@ public:
     template<typename FormatString, typename... Args>
     void error(const FormatString &fmt, Args &&...args)
     {
-        error_tag(default_tag(), fmt, std::forward<Args>(args)...);
+        error_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
@@ -184,7 +184,7 @@ public:
     template<typename FormatString, typename... Args>
     void critical(const FormatString &fmt, Args &&...args)
     {
-        critical_tag(default_tag(), fmt, std::forward<Args>(args)...);
+        critical_tag(spdlog_default_tag, fmt, std::forward<Args>(args)...);
     }
 
     template<typename T>
@@ -288,7 +288,7 @@ public:
     template<typename T>
     void trace(const T &msg)
     {
-        trace_tag(default_tag(), msg);
+        trace_tag(spdlog_default_tag, msg);
     }
 
     template<typename T>
@@ -300,7 +300,7 @@ public:
     template<typename T>
     void debug(const T &msg)
     {
-        debug_tag(default_tag(), msg);
+        debug_tag(spdlog_default_tag, msg);
     }
 
     template<typename T>
@@ -312,7 +312,7 @@ public:
     template<typename T>
     void info(const T &msg)
     {
-        info_tag(default_tag(), msg);
+        info_tag(spdlog_default_tag, msg);
     }
 
     template<typename T>
@@ -324,7 +324,7 @@ public:
     template<typename T>
     void warn(const T &msg)
     {
-        warn_tag(default_tag(), msg);
+        warn_tag(spdlog_default_tag, msg);
     }
 
     template<typename T>
@@ -336,7 +336,7 @@ public:
     template<typename T>
     void error(const T &msg)
     {
-        error_tag(default_tag(), msg);
+        error_tag(spdlog_default_tag, msg);
     }
 
     template<typename T>
@@ -348,7 +348,7 @@ public:
     template<typename T>
     void critical(const T &msg)
     {
-        critical_tag(default_tag(), msg);
+        critical_tag(spdlog_default_tag, msg);
     }
 
 
