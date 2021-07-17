@@ -86,7 +86,7 @@ public:
     template<typename FormatString, typename std::enable_if<fmt::is_compile_string<FormatString>::value, int>::type = 0, typename... Args>
     void log(source_loc loc, level::level_enum lvl, const FormatString &fmt, Args &&...args)
     {
-        log(spdlog::default_tag(), loc, lvl, fmt, std::forward<Args>(args)...);
+        log(spdlog_default_tag, loc, lvl, fmt, std::forward<Args>(args)...);
     }
 
     // FormatString is NOT a type derived from fmt::compile_string but is a string_view_t or can be implicitly converted to one
@@ -100,7 +100,7 @@ public:
     template<typename... Args>
     void log(source_loc loc, level::level_enum lvl, string_view_t fmt, Args &&...args)
     {
-        log(spdlog::default_tag(), loc, lvl, fmt, std::forward<Args>(args)...);
+        log(spdlog_default_tag, loc, lvl, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
@@ -112,7 +112,7 @@ public:
     template<typename FormatString, typename... Args>
     void log(level::level_enum lvl, const FormatString &fmt, Args &&...args)
     {
-        log(spdlog::default_tag(), source_loc{}, lvl, fmt, std::forward<Args>(args)...);
+        log(spdlog_default_tag, source_loc{}, lvl, fmt, std::forward<Args>(args)...);
     }
 
     template<typename FormatString, typename... Args>
@@ -196,7 +196,7 @@ public:
     template<typename T>
     void log(level::level_enum lvl, const T &msg)
     {
-        log(spdlog::default_tag(), source_loc{}, lvl, msg);
+        log(spdlog_default_tag, source_loc{}, lvl, msg);
     }
 
     void log(const char *tag, log_clock::time_point log_time, source_loc loc, level::level_enum lvl, string_view_t msg)
@@ -248,7 +248,7 @@ public:
                           std::is_convertible<const T &, spdlog::string_view_t>::value && !fmt::is_compile_string<T>::value, int>::type = 0>
     void log(source_loc loc, level::level_enum lvl, const T &msg)
     {
-        log(spdlog::default_tag(), loc, lvl, string_view_t{msg});
+        log(spdlog_default_tag, loc, lvl, string_view_t{msg});
     }
 
     void log(const char* tag, level::level_enum lvl, string_view_t msg)
@@ -276,7 +276,7 @@ public:
                           int>::type = 0>
     void log(source_loc loc, level::level_enum lvl, const T &msg)
     {
-        log(spdlog::default_tag(), loc, lvl, "{}", msg);
+        log(spdlog_default_tag, loc, lvl, "{}", msg);
     }
 
     template<typename T>
