@@ -360,7 +360,7 @@ public:
 #    else
 
     template<typename... Args>
-    void log(source_loc loc, level::level_enum lvl, wstring_view_t fmt, Args &&...args)
+    void log(string_view_t tag, source_loc loc, level::level_enum lvl, wstring_view_t fmt, Args &&...args)
     {
         bool log_enabled = should_log(lvl);
         bool traceback_enabled = tracer_.enabled();
@@ -376,6 +376,7 @@ public:
             memory_buf_t buf;
             details::os::wstr_to_utf8buf(wstring_view_t(wbuf.data(), wbuf.size()), buf);
             details::log_msg log_msg(loc, name_, lvl, string_view_t(buf.data(), buf.size()));
+            log_msg.msg_tag = tag;
             log_it_(log_msg, log_enabled, traceback_enabled);
         }
         SPDLOG_LOGGER_CATCH()
@@ -383,7 +384,7 @@ public:
 
     // T can be statically converted to wstring_view
     template<class T, typename std::enable_if<is_convertible_to_wstring_view<const T &>::value, int>::type = 0>
-    void log(source_loc loc, level::level_enum lvl, const T &msg)
+    void log(string_view_t tag, source_loc loc, level::level_enum lvl, const T &msg)
     {
         bool log_enabled = should_log(lvl);
         bool traceback_enabled = tracer_.enabled();
@@ -397,6 +398,7 @@ public:
             memory_buf_t buf;
             details::os::wstr_to_utf8buf(msg, buf);
             details::log_msg log_msg(loc, name_, lvl, string_view_t(buf.data(), buf.size()));
+            log_msg.msg_tag = tag;
             log_it_(log_msg, log_enabled, traceback_enabled);
         }
         SPDLOG_LOGGER_CATCH()
