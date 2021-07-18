@@ -17,6 +17,7 @@ struct SPDLOG_API log_msg
     log_msg(const log_msg &other) = default;
     log_msg &operator=(const log_msg &other) = default;
 
+    string_view_t msg_tag;
     string_view_t logger_name;
     level::level_enum level{level::off};
     log_clock::time_point time;
