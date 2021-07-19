@@ -117,6 +117,11 @@ SPDLOG_INLINE spdlog::logger *default_logger_raw()
     return details::registry::instance().get_default_raw();
 }
 
+SPDLOG_INLINE spdlog::string_view_t default_tag_raw()
+{
+        return SPDLOG_DEFAULT_TAG;
+}
+
 SPDLOG_INLINE void set_default_logger(std::shared_ptr<spdlog::logger> default_logger)
 {
     details::registry::instance().set_default_logger(std::move(default_logger));
